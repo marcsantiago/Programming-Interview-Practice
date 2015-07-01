@@ -5,18 +5,16 @@
  */
 package ObjectOrientedDesign;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 /**
  *
  * @author marcsantiago
  */
 public class Tester {
     public static void main(String[] args){
-        BlackJack c = new BlackJack();
-        System.out.println(c.draw());
-        System.out.println(c.draw());
-        System.out.println(c.draw());
-        System.out.println(c.draw());
-        System.out.println(c.draw());
-        c.play();
+        BlackJack bj = new BlackJack();
+        System.out.println("");
     }
 }
