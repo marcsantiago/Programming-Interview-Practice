@@ -14,6 +14,8 @@ import java.util.Scanner;
  *
  * @author marcsantiago
  */
+//design a data structure for a deck of cards
+//explain how you would subclass the data structure to implement BlackJack
 public class DeckOfCards {
     private final String [] suits = {"Hearts", "Spades", "Clubs", "Diamonds"};
     private final String [] cards = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Ace", "Jack", "King", "Queen"};
@@ -30,8 +32,8 @@ public class DeckOfCards {
 }
 
 
-class BlackJack{
-    DeckOfCards myDeck = new DeckOfCards();
+class BlackJack extends DeckOfCards{
+    //DeckOfCards myDeck = new DeckOfCards();
     //private int turn = 0;
     private int cardNum = 0;
     private int computerPoints = 0;
@@ -39,8 +41,8 @@ class BlackJack{
     private boolean computerStay = false;
     private String playerName;
     private String computerInitCard;
-    private ArrayList<Integer> playerHand = new ArrayList<>();
-    private ArrayList<Integer> computerHand = new ArrayList<>();
+    private final ArrayList<Integer> playerHand = new ArrayList<>();
+    private final ArrayList<Integer> computerHand = new ArrayList<>();
     
     Scanner sc = new Scanner(System.in);
 
@@ -56,13 +58,13 @@ class BlackJack{
         System.out.println("Dealing cards...");
         drawTwo();
         System.out.println("Computer has two cards, one is face down the other is "  + computerInitCard);
-        System.out.println(playerName + "'s two cards are the " + myDeck.deck[2] + " and " + myDeck.deck[3] + " total points: " + playerPoints);
+        System.out.println(playerName + "'s two cards are the " + deck[2] + " and " + deck[3] + " total points: " + playerPoints);
         if(computerPoints == 21){
             computerStay = true;
         }
         if(playerPoints == 21 && computerPoints != 21){
-            System.out.println(playerName + " wins!");
-            System.out.println("Computer Points: " + computerPoints + playerName + "'s Points: " + playerPoints);
+            System.out.println("Blackjack! " + playerName + " wins!");
+            System.out.println("Computer Points: " + computerPoints + " " + playerName + "'s Points: " + playerPoints);
             return;
         }
         while(hit){
@@ -76,15 +78,15 @@ class BlackJack{
                 hit = false;
             }
             
-            if(playerPoints == 21){
-                System.out.println(playerName + " wins!");
-                System.out.println("Computer Points: " + computerPoints + playerName + "'s Points: " + playerPoints);
-                return;
-            }
+//            if(playerPoints == 21){
+//                System.out.println(playerName + " wins!");
+//                System.out.println("Computer Points: " + computerPoints + " " + playerName + "'s Points: " + playerPoints);
+//                return;
+//            }
             
             if(playerPoints > 21){
                 System.out.println(playerName + " loses!");
-                 System.out.println("Computer Points: " + computerPoints + playerName + "'s Points: " + playerPoints);
+                 System.out.println("Computer Points: " + computerPoints +" " + playerName + "'s Points: " + playerPoints);
                 return;
             }
         }
@@ -99,15 +101,15 @@ class BlackJack{
         
         if(computerPoints > playerPoints){
             System.out.println(playerName + " loses!");
-            System.out.println("Computer Points: " + computerPoints + playerName + "'s Points: " + playerPoints);
+            System.out.println("Computer Points: " + computerPoints + " " + playerName + "'s Points: " + playerPoints);
         }
         else if(computerPoints < playerPoints){
             System.out.println(playerName + " wins!");
-            System.out.println("Computer Points: " + computerPoints + playerName + "'s Points: " + playerPoints);
+            System.out.println("Computer Points: " + computerPoints + " " +  playerName + "'s Points: " + playerPoints);
         }
         else if(computerPoints == playerPoints){
             System.out.println("Bust!");
-            System.out.println("Computer Points: " + computerPoints + playerName + "'s Points: " + playerPoints);
+            System.out.println("Computer Points: " + computerPoints + " " +  playerName + "'s Points: " + playerPoints);
         }
         
         
@@ -127,7 +129,7 @@ class BlackJack{
         }
         
         if(!computerStay){
-            String card = myDeck.deck[cardNum];
+            String card = deck[cardNum];
             if(card.charAt(0) == 'J' || card.charAt(0) == 'Q' || card.charAt(0) == 'K'){
                 computerHand.add(10);
             }
@@ -148,7 +150,7 @@ class BlackJack{
     }
     
     private void playerDraw(){
-        String card = myDeck.deck[cardNum];
+        String card = deck[cardNum];
         if(card.charAt(0) == 'J' || card.charAt(0) == 'Q' || card.charAt(0) == 'K'){
             playerHand.add(10);
         }
@@ -169,14 +171,23 @@ class BlackJack{
     private int sumHand(ArrayList<Integer> hand){
         int sum = 0;
         boolean elevenInHand = false;
+        int numberOfAces = 0;
         for(Integer i : hand){
             if(i == 11){
                 elevenInHand = true;
+                numberOfAces++;
             }
             sum += i;
         }
+        
         if(elevenInHand && sum > 21){
-            sum -= 10;
+            while(true){
+                sum -= 10;
+                numberOfAces--;
+                if(sum <= 21 || numberOfAces == 0){
+                    break;
+                }
+            }
         } 
         return sum;
     }

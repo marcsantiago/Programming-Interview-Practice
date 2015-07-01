@@ -1,21 +1,25 @@
 from random import shuffle
 
-
+# design a data structure for a deck of cards
+# explain how you would subclass the data structure to implement BlackJack
 class Deck(object):
     suits = ["Hearts", "Spades", "Clubs", "Diamonds"]
     cards = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Ace", "Jack", "King", "Queen"]
     deck = []
+    
+    # def __init__(self):
+    #     for i in xrange(0, 52):
+    #         self.deck.append(self.cards[i % 13] + " of " + self.suits[i % 4])
+    #     shuffle(self.deck)
+    for i in xrange(0, 52):
+        deck.append(cards[i % 13] + " of " + suits[i % 4])
+    shuffle(deck)
 
-    def __init__(self):
-        for i in xrange(0, 52):
-            self.deck.append(self.cards[i % 13] + " of " + self.suits[i % 4])
-        shuffle(self.deck)
 
 
-class BlackJack(object):
-    my_deck = Deck()
+class BlackJack(Deck):
+    # my_deck = Deck()
     card_index = 0
-
     computer_hand = []
     computer_points = 0
     computer_init_card = None
@@ -37,8 +41,8 @@ class BlackJack(object):
         self._draw_two()
         print "The computer has drawn two cards, one is face down the other is " + self.computer_init_card
         print self.player_name + " drew two cards as well. " \
-                                 "Your cards are " + self.my_deck.deck[2] + " " \
-                                 "and " + self.my_deck.deck[3] + " your total points are " + str(self.player_points)
+                                 "Your cards are " + Deck.deck[2] + " " \
+                                 "and " + Deck.deck[3] + " your total points are " + str(self.player_points)
 
         while hit:
             print "Hit? [y, n]"
@@ -95,7 +99,7 @@ class BlackJack(object):
             self.stay = True
 
         if not self.stay:
-            card = self.my_deck.deck[self.card_index]
+            card = Deck.deck[self.card_index]
 
             if card[0] == "J" or card[0] == "K" or card[0] == "Q":
                 self.computer_hand.append(10)
@@ -113,7 +117,7 @@ class BlackJack(object):
         return
 
     def _player_draw(self):
-        card = self.my_deck.deck[self.card_index]
+        card = Deck.deck[self.card_index]
 
         if card[0] == "J" or card[0] == "K" or card[0] == "Q":
             self.player_hand.append(10)
@@ -131,14 +135,20 @@ class BlackJack(object):
 
     def _sum(self, hand):
         count = 0
+        number_of_aces = 0
         have_ace = False
         for i in xrange(len(hand)):
             if hand[i] == 11:
                 have_ace = True
+                number_of_aces += 1
             count += hand[i]
 
         if have_ace and count > 21:
-            count -= 10
+            while True:
+                count -= 10
+                number_of_aces -= 1
+                if count <= 21 or number_of_aces == 0:
+                    break
 
         return count
 
