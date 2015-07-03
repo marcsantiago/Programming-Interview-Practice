@@ -1,3 +1,0 @@
-StacksAndQueues.Q3_3
-StacksAndQueues.Node3
-StacksAndQueues.Stack2
