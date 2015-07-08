@@ -1,2 +1,0 @@
-ObjectOrientedDesign.DeckOfCards
-ObjectOrientedDesign.BlackJack

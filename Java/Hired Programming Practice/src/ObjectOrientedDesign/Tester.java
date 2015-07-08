@@ -24,22 +24,36 @@ public class Tester {
 //        cp.addCD("Dust", songs2);
 //        cp.removeCD("Dust");
         
-       JukeBox jb = new JukeBox("Marc", "123");
-       String [] songs = {"burn burn burn", "train", "grey hat"};
-       String [] songs2 = {"falling asleep", "tip toe", "walking to town"};
-       jb.addCD("Kenny Bloom", songs);
-       jb.addCD("Dust", songs2);
-       jb.saveUserMusic();
-       jb.displayCurrentUserInformation();
-       
-       jb.addUser("Jonny", "111");
-       jb.changeDefaultUser("Jonny", "111");
-       jb.addCD("Kenny Bloom", songs);
-       jb.addCD("Dust", songs2);
-       jb.saveUserMusic();
-       jb.displayCurrentUserInformation();
+//       JukeBox jb = new JukeBox("Marc", "123");
+//       String [] songs = {"burn burn burn", "train", "grey hat"};
+//       String [] songs2 = {"falling asleep", "tip toe", "walking to town"};
+//       jb.addCD("Kenny Bloom", songs);
+//       jb.addCD("Dust", songs2);
+//       jb.saveUserMusic();
+//       jb.displayCurrentUserInformation();
+//       
+//       jb.addUser("Jonny", "111");
+//       jb.changeDefaultUser("Jonny", "111");
+//       jb.addCD("Kenny Bloom", songs);
+//       jb.addCD("Dust", songs2);
+//       jb.saveUserMusic();
+//       jb.displayCurrentUserInformation();
 
         
+        ParkingLot pl = new ParkingLot();
+        //System.out.println(pl.isLevelEmpty(1));
+        //System.out.println(pl.isLevelFull(1));
+        pl.addCar();
+        pl.addCar();
+        pl.addCar();
+        pl.addCar();
+        pl.addCar();
+        pl.addCar();
+        pl.addCar();
+        pl.addCar();
+
+        pl.addBus();
+        pl.addMotocycle();       
         System.out.println("");
     }
 }
